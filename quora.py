@@ -1007,26 +1007,6 @@ def binary_search(nums, left, right, value):
     return left
 
 
-def subset_sum_recursive(nums, k):
-    results = []
-
-    def backtrack(idx, s, path):
-        if s == 0 and path:
-            results.append(path[:])
-        if idx == len(nums):
-            return
-        for i in range(idx, len(nums)):
-            path.append(nums[i])
-            backtrack(i + 1, s - nums[i], path)
-            path.pop()
-
-    backtrack(0, k, [])
-    return results
-
-
-subset_sum_recursive([1, 2, 3, 4, 5, 6], 7)
-
-
 def subset_sum_dp(nums, k):
     dp = [[False for _ in range(k + 1)] for _ in range(len(nums) + 1)]
     for i in range(len(nums) + 1):
@@ -1132,3 +1112,49 @@ def partition_of_palindromes(s):
     return results
 
 
+# maximum points on a line
+def max_points(points):
+    slopes = [defaultdict(int) for _ in range(len(points))]
+    optimal = 0
+    for i in range(len(points) - 1):
+        for j in range(i + 1, len(points)):
+            x_diff, y_diff = points[i][0] - points[j][0], points[i][1] - points[j][1]
+            if x_diff == 0:
+                slopes[i]['-'] += 1
+            else:
+                slopes[i][y_diff/x_diff] += 1
+        optimal = max(optimal, max(slopes[i].values()))
+    return optimal + 1
+
+
+# shortest palindrome
+def shortest_palindrome(s):
+    s_dual = s + '*' + s[::-1]
+    dp = [0] * len(s_dual)
+    for i in range(1, len(dp)):
+        j = dp[i - 1]
+        while j > 0 and s_dual[i] != s_dual[j]:
+            j = dp[j - 1]
+        if s_dual[i] == s_dual[j]:
+            dp[i] = j + 1
+    return s[::-1][:len(s) - dp[-1]] + s
+
+
+# solve for the binary representation of given number n - 1
+def binary_representation_loop(n):
+    s = ''
+    n = n - 1
+    while n > 0:
+        s += str(n%2)
+        n //= 2
+    return str(int(s))[::-1]
+
+
+def binary_representation_recursion(n, flag=True):
+    if flag:
+        n = n - 1
+    if n == 0:
+        return '0'
+    else:
+        return binary_representation_recursion(n // 2, False) + str(n % 2)
+#
