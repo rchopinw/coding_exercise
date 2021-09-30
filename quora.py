@@ -1034,24 +1034,6 @@ def excel_column_name(num):
     return ans[::-1]
 
 
-# stock price input and output
-class StockPrice:
-    def __init__(self, k):
-        self.window_size = k
-        self.size = 0
-        self.price_flow = deque([])
-
-    def put(self, price):
-        if self.window_size <= len(self.price_flow):
-            self.price_flow.popleft()
-        while self.price_flow and price > self.price_flow[-1]:
-            self.price_flow.pop()
-        self.price_flow.append(price)
-
-    def get_price(self):
-        return self.price_flow[0]
-
-
 # implement a queue
 class MyQueue:
     def __init__(self):
@@ -1157,4 +1139,122 @@ def binary_representation_recursion(n, flag=True):
         return '0'
     else:
         return binary_representation_recursion(n // 2, False) + str(n % 2)
-#
+
+
+class QueryForEventCount:
+    def __init__(self, intervals):
+        self.intervals = intervals
+        self.size = len(intervals)
+
+    def request(self, query):
+        count = 0
+        for interval in self.intervals:
+            if query < interval[0] or query > interval[1]:
+                count += 1
+        return self.size - count
+
+
+# from point (x, y) to (x + y, y) or (x, y + x)
+def reaching_point(sx, sy, tx, ty):
+    while tx >= sx and ty >= sy:
+        if tx == ty:
+            break
+        elif tx > ty:  # when tx > ty
+            if ty > sy:  # if ty is larger than sy, then reduce tx since we have tx > ty
+                tx %= ty
+            else:
+                return (tx - sx) % ty == 0
+        else:
+            if tx > sx:
+                ty %= tx
+            else:
+                return (ty - sy) % tx == 0
+    return tx == sx and ty == sy
+
+
+# rotate output
+def spiral_matrix_o_to_i(matrix):
+    result = []
+    ny, nx = len(matrix), len(matrix[0])
+    left, right, up, down = 0, nx - 1, 0, ny - 1
+    while len(result) < ny * nx:
+        for x in range(left, right + 1):
+            result.append(matrix[up][x])
+
+        for y in range(up + 1, down + 1):
+            result.append(matrix[y][right])
+
+        if up != down:
+            for x in range(right - 1, left - 1, -1):
+                result.append(matrix[down][x])
+
+        if left != right:
+            for y in range(down - 1, up, -1):
+                result.append(matrix[y][left])
+
+        up += 1
+        left += 1
+        right -= 1
+        down -= 1
+    return result
+
+
+def spiral_matrix_i_to_o(matrix):
+    result = []
+    ny, nx = len(matrix), len(matrix[0])
+    up, down, left, right = 0, ny - 1, 0, nx - 1
+    while len(result) < nx * ny:
+        for x in range(right, left - 1, -1):
+            result.append(matrix[down][x])
+
+        for y in range(down - 1, up - 1, -1):
+            result.append(matrix[y][left])
+
+        if up != down:
+            for x in range(left + 1, right + 1):
+                result.append(matrix[up][x])
+
+        if left != right:
+            for y in range(up + 1, down):
+                result.append(matrix[y][right])
+
+        left += 1
+        right -= 1
+        up += 1
+        down -= 1
+    return result[::-1]
+
+
+from collections import Counter
+
+
+def find_anagram(words, target):
+    result, count = [], Counter(target)
+    for word in words:
+        if Counter(word) == count:
+            result.append(word)
+    return result
+
+
+class AnagramFinder:
+    def __init__(self, words):
+        self.words = words
+        self.ws_map = self._formulate_collections(self.words)
+
+    def find(self, s):
+        s_rep = self._gen_represent(s)
+        return self.ws_map.get(s_rep)
+
+    def _formulate_collections(self, ws):
+        d = defaultdict(list)
+        for w in ws:
+            d[self._gen_represent(w)].append(w)
+        return d
+
+    def _gen_represent(self, w):
+        represent = [0 for _ in range(26)]
+        for c in w:
+            represent[ord(c) - ord('a')] += 1
+        return tuple(represent)
+
+
