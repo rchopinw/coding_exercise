@@ -1,5 +1,6 @@
 import heapq
 
+
 # meeting rooms i
 def meeting_rooms_i(intervals):
     intervals.sort()
