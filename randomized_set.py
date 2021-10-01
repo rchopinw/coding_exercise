@@ -1,3 +1,6 @@
+from random import choice
+
+
 # random return with O(1)
 class RandomizedSet:
 
@@ -30,9 +33,22 @@ class RandomizedSet:
             return True
         return False
 
-    def getRandom(self) -> int:
+    def get_random(self) -> int:
         """
         Get a random element from the set.
         """
-        from random import choice
         return choice(self.list)
+
+
+class RandomizedCollection:
+    def __init__(self):
+        pass
+
+    def insert(self, val):
+        pass
+
+    def remove(self, val):
+        pass
+
+    def get_random(self):
+        pass

@@ -21,3 +21,20 @@ def sum_with_one(queries):
             optimal = min(optimal, count)
     return optimal
 
+
+# from point (x, y) to (x + y, y) or (x, y + x)
+def reaching_point(sx, sy, tx, ty):
+    while tx >= sx and ty >= sy:
+        if tx == ty:
+            break
+        elif tx > ty:  # when tx > ty
+            if ty > sy:  # if ty is larger than sy, then reduce tx since we have tx > ty
+                tx %= ty
+            else:
+                return (tx - sx) % ty == 0
+        else:
+            if tx > sx:
+                ty %= tx
+            else:
+                return (ty - sy) % tx == 0
+    return tx == sx and ty == sy
