@@ -70,9 +70,6 @@ def prime_number_multiplication_with_duplication(nums):
     return results
 
 
-prime_number_multiplication_with_duplication([2,2,3])
-
-
 def prime_number_multiplication_ii(nums):
     result = [1]
     for num in nums:

@@ -1,3 +1,6 @@
+from serialize_and_deserialize_binary_tree import CodecBFS
+
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -25,3 +28,50 @@ def build_tree(preorder, inorder):
 
     return recursion(0, len(preorder) - 1)
 
+
+def in_order_traversal(root):
+    result = []
+    def dfs(node):
+        if not node:
+            return
+        dfs(node.left)
+        result.append(node.val)
+        dfs(node.right)
+    dfs(root)
+    return result
+
+
+def pre_order_traversal(root):
+    result = []
+    def dfs(node):
+        if not node:
+            return
+        result.append(node.val)
+        dfs(node.left)
+        dfs(node.right)
+    dfs(root)
+    return result
+
+
+if __name__ == '__main__':
+    root1 = TreeNode(5)
+    root1.left = TreeNode(1)
+    root1.left.left = TreeNode(4)
+    root1.left.right = TreeNode(7)
+    root1.left.right.left = TreeNode(8)
+    root1.right = TreeNode(2)
+    root1_test = build_tree(pre_order_traversal(root1), in_order_traversal(root1))
+    assert CodecBFS().serialize(root1_test) == CodecBFS().serialize(root1)
+
+    root2 = TreeNode(3)
+    root2.left = TreeNode(1)
+    root2.right = TreeNode(2)
+    root2_test = build_tree(pre_order_traversal(root2), in_order_traversal(root2))
+    assert CodecBFS().serialize(root2_test) == CodecBFS().serialize(root2)
+
+    root3 = None
+    assert None == build_tree([], [])
+
+    root4 = TreeNode(10)
+    root4_test = build_tree([10], [10])
+    assert  root4_test.val == 10 and not root4_test.left and not root4_test.right

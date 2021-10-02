@@ -1,4 +1,5 @@
 import heapq
+import bisect
 from collections import defaultdict
 
 
@@ -74,3 +75,41 @@ class ClassRoom:
             else:
                 heapq.heappush(self.pq, (-((r - l) // 2), l, r))
             self.intervals.pop(p)
+
+
+class ExamRoom:
+    def __init__(self, n):
+        self.students = []
+        self.n_seats = n
+
+    def seat(self):
+        pos = 0
+        if len(self.students) != 0:
+            optimal_distance = 0
+            for prev_, next_ in zip(self.students, self.students[1:]):
+                if (next_ - prev_) // 2 > optimal_distance:
+                    optimal_distance, pos = (next_ - prev_) // 2, prev_ + (next_ - prev_) // 2
+            if self.n_seats - 1 - self.students[-1] > optimal_distance:
+                pos = self.n_seats - 1
+            if self.students[0] - 0 > optimal_distance:
+                pos = 0
+        ins_pos = self._binary_search(self.students, pos)
+        self.students.insert(ins_pos, pos)
+        return pos
+
+    def leave(self, p):
+        self.students.remove(p)
+
+    def _binary_search(self, nums, k):
+        if nums[-1] < k:
+            return len(nums)
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] < k:
+                left = mid + 1
+            else:
+                right = mid
+        return left
+
+

@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 from time import time
 
 
@@ -14,12 +15,12 @@ class AverageFinder:
         else:
             self.sample.append((sample + self.sample[-1][0], timestamp))
 
-    def get_avg_in_past_hour(self, prev_timestamp, timestamp=None, ):
+    def get_avg_in_past_hour(self, time_span, timestamp=None, ):
         if not self.sample:
             return 0.0
         if not timestamp:
             timestamp = time()
-        # prev_timestamp = timestamp - time_span
+        prev_timestamp = timestamp - time_span
         lower_bound = self._binary_search(self.sample, prev_timestamp)
         upper_bound = self._binary_search(self.sample, timestamp)
         if self.sample[upper_bound][1] == timestamp:
@@ -72,15 +73,38 @@ class AverageFinderConstantSpace:
         self.sample.append((sample, timestamp))
         self.total += sample
 
-    def get_avg_in_past_hour(self, ):
+    def get_avg_in_past_hour(self, timestamp=None):
         if not self.sample:
             return 0.0
+
+        if timestamp is None:
+            timestamp = time()
+
         while self.sample:
-            diff = time() - self.sample[0][1]
+            diff = timestamp - self.sample[0][1]
             if diff >= 3600:
                 es = self.sample.popleft()
                 self.total -= es[0]
             else:
                 break
         return self.total / len(self.sample)
+
+
+class AverageFinderHeap:
+    def __init__(self, ):
+        self.sample = []
+        self.sum = 0.0
+
+    def add_sample(self, sample):
+        self.sum += sample
+        heapq.heappush(self.sample, (time(), sample))
+        self._trace()
+
+    def get_avg_in_past_hour(self, ):
+        self._trace()
+        return self.sum / len(self.sample)
+
+    def _trace(self):
+        while time() - self.sample[0][0] > 3600:
+            self.sum -= heapq.heappop(self.sample)[1]
 
