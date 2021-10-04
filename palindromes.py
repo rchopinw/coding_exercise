@@ -15,6 +15,10 @@ def partition_of_palindromes(s):
     return results
 
 
+def partition_of_palindromes_ii(s):
+    pass
+
+
 # shortest palindrome
 def shortest_palindrome(s):
     s_dual = s + '*' + s[::-1]
@@ -26,3 +30,43 @@ def shortest_palindrome(s):
         if s_dual[i] == s_dual[j]:
             dp[i] = j + 1
     return s[::-1][:len(s) - dp[-1]] + s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -21,7 +21,7 @@ class LRUCache:
             return -1
         node = self.cache[key]
         self._to_top(node)
-        return node
+        return node.val
 
     def put(self, key, value):
         node = self.cache.get(key)
@@ -29,12 +29,11 @@ class LRUCache:
             new_node = Node()
             new_node.key, new_node.val = key, value
             self.size += 1
+            self.cache[key] = new_node
             if self.size > self.capacity:
-                self._pop()
-                del self.cache[key]
-                self._add(new_node)
-            else:
-                self._add(new_node)
+                del_node = self._pop()
+                del self.cache[del_node.key]
+            self._add(new_node)
         else:
             node.val = value
             self._to_top(node)
@@ -60,3 +59,21 @@ class LRUCache:
         _tail = self.tail.prev
         self._remove(_tail)
         return _tail
+
+
+if __name__ == '__main__':
+    cache = LRUCache(capacity=4)
+    cache.put(2, 10)
+    cache.put(3, 12)
+    cache.put(1, 8)
+    cache.put(4, 10)
+    cache.put(12, 111)
+    assert cache.head.next.val == 111
+    assert cache.tail.prev.val == 12
+    assert cache.get(1) == 8
+    assert cache.head.next.val == 8
+
+
+
+
+

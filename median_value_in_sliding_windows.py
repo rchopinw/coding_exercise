@@ -2,7 +2,7 @@ import heapq
 from collections import defaultdict, deque
 
 
-def maximum_median_value(nums, k):
+def median_value(nums, k):
     smalls, bigs = [], nums[:k]
     heapq.heapify(bigs)
     while len(smalls) < len(bigs):
@@ -108,7 +108,6 @@ class MedianValueInFixedSizeFlow:
             heapq.heappush(self.smalls, -heapq.heappop(self.bigs))
             if len(self.smalls) - len(self.bigs) > 1:
                 heapq.heappush(self.bigs, -heapq.heappop(self.smalls))
-        print(self.smalls, self.bigs, len(self.smalls) + len(self.bigs))
 
     def get(self):
         if len(self.queue) < self.capacity:
@@ -119,3 +118,28 @@ class MedianValueInFixedSizeFlow:
             if self.capacity%2 == 0:
                 return (self.bigs[0] - self.smalls[0]) / 2.0
             return -self.smalls[0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -44,3 +44,22 @@ def hit_bricks(grid, hits):
             results.append(0)
 
     return results[::-1]
+
+
+if __name__ == '__main__':
+    grid1 = [[0, 1, 0, 1, 0], [0, 1, 0, 1, 1], [1, 1, 0, 1, 0], [0, 1, 0, 0, 0], [0, 1, 0, 0, 0]]
+    hits1 = [[2,1], [1,4], [1,3]]
+
+    grid2 = [[1,0,0,0],[1,1,1,0]]
+    hits2 = [[1,0]]
+
+    grid3 = [[1]]
+    hits3 = [[0, 0]]
+
+    grid5 = [[1, 0, 1]]
+    hits5 = [[0, 0]]
+
+    assert hit_bricks(grid1, hits1) == [3, 0, 1]
+    assert hit_bricks(grid2, hits2) == [2]
+    assert hit_bricks(grid3, hits3) == [0]
+    assert hit_bricks(grid5, hits5) == [0]

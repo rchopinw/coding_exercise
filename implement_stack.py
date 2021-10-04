@@ -19,3 +19,7 @@ class MyStack:
 
     def empty(self):
         return not self.queue
+
+
+
+

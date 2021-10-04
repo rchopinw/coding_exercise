@@ -12,9 +12,30 @@ def meeting_rooms_i(intervals):
 
 def meeting_rooms_ii(intervals):
     intervals.sort()
-    queue, count = [intervals[0][1]], 0
+    queue = [intervals[0][1]]
     for interval in intervals[1:]:
         if queue[0] <= interval[0]:
             heapq.heappop(queue)
         heapq.heappush(queue, interval[1])
     return len(queue)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

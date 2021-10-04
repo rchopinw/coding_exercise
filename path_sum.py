@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 
 
 # path sum
@@ -30,9 +30,9 @@ def has_path_sum_dfs(root, target):
 def has_path_sum_bfs(root, targetSum):
     if not root:
         return False
-    stack = [(root, 0)]
+    stack = deque([(root, 0)])
     while stack:
-        cur_node, cur_sum = stack.pop()
+        cur_node, cur_sum = stack.popleft()
         cur_sum += cur_node.val
         if cur_node.left is None and cur_node.right is None and cur_sum == targetSum:
             return True
@@ -116,3 +116,10 @@ def path_sum_to_k(root, k):
 
     dfs(root, 0)
     return count
+
+
+
+
+
+
+

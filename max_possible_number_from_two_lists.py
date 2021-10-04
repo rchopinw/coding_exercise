@@ -32,3 +32,8 @@ def max_number(nums1, nums2, k):
         if len(stack1) + len(stack2) == k:
             optimal = max(optimal, merge(stack1, stack2))
     return optimal
+
+
+if __name__ == '__main__':
+    assert max_number([4, 8, 6, 1], [7, 7, 9, 1], 5) == [9, 8, 6, 1, 1]
+

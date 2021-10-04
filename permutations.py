@@ -41,10 +41,8 @@ def prime_number_multiplication(nums):
         if idx == len(nums):
             return
         for i in range(idx, len(nums)):
-            p *= nums[i]
             results.append(p)
-            backtrack(i + 1, p)
-            p //= nums[i]
+            backtrack(i + 1, p * nums[i])
     backtrack(0, 1)
     return results
 
