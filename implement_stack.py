@@ -12,13 +12,26 @@ class MyStack:
             self.queue.append(self.queue.popleft())
 
     def pop(self):
-        self.queue.popleft()
+        return self.queue.popleft()
 
     def top(self):
         return self.queue[0]
 
     def empty(self):
-        return not self.queue
+        return not not self.queue
+
+
+if __name__ == '__main__':
+    stack = MyStack()
+    stack.push(1)
+    stack.push(2)
+    stack.push(10)
+    stack.push(8)
+    assert stack.pop() == 8
+    assert stack.top() == 10
+    assert stack.empty()
+
+
 
 
 

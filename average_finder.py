@@ -15,7 +15,7 @@ class AverageFinder:
         else:
             self.sample.append((sample + self.sample[-1][0], timestamp))
 
-    def get_avg_in_past_hour(self, time_span, timestamp=None, ):
+    def get_avg_in_past_hour(self, time_span, timestamp=None,):
         if not self.sample:
             return 0.0
         if not timestamp:
@@ -98,7 +98,6 @@ class AverageFinderHeap:
     def add_sample(self, sample):
         self.sum += sample
         heapq.heappush(self.sample, (time(), sample))
-        self._trace()
 
     def get_avg_in_past_hour(self, ):
         self._trace()

@@ -40,3 +40,5 @@ if __name__ == "__main__":
     assert finder.find(s5, s6) == 0
 
     print('All cases passed.')
+
+

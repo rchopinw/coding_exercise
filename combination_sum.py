@@ -129,3 +129,13 @@ if __name__ == '__main__':
     # recursion
     assert subset_sum_recursive([1, 5, 8, 7, 6, 13, 2], 13) == [[1, 5, 7], [5, 8], [5, 6, 2], [7, 6], [13]]
     assert subset_sum_recursive([1, 1, 1, 2], 3)
+
+
+    def combination_sum_dp(nums, k):
+        dp = {i: [] for i in range(k + 1)}
+        dp[0] =[[]]
+        for num in nums:
+            for cur_sum in range(num, k + 1):
+                for combination in dp[cur_sum - num]:
+                    dp[cur_sum].append(combination + [num])
+        return dp[k]

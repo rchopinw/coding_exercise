@@ -20,7 +20,7 @@ def search_rotate(nums, target):
 def search_rotation_with_duplicate(nums, target):
     if nums[0] == target:
         return True
-    while nums[0] != nums[-1]:
+    while nums and nums[0] == nums[-1]:
         nums.pop()
     if not nums:
         return False
@@ -40,3 +40,16 @@ def search_rotation_with_duplicate(nums, target):
             else:
                 right = mid - 1
     return -1
+
+
+if __name__ == '__main__':
+    nums1, k1 = [2, 4, 6, 7, 10, 1], 6
+    nums2, k2 = [5, 9, 20, 1, 2, 3, 4], 1
+
+
+
+
+
+
+
+

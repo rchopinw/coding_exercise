@@ -35,4 +35,3 @@ def find_missing_xor(nums, n):
             y ^= i
     return x, y
 
-

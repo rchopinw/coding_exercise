@@ -13,4 +13,3 @@ class HitCounter:
         while self.queue and timestamp - self.queue[0] >= 300:
             self.queue.popleft()
         return len(self.queue)
-

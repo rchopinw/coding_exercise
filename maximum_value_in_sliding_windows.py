@@ -31,21 +31,25 @@ def max_sliding_window(nums, k):
     return max_values
 
 
-# stock price input and output
-class StockPrice:
-    def __init__(self, k):
-        self.window_size = k
-        self.size = 0
-        self.price_flow = deque([])
+class StockPriceMax:
+    def __init__(self, window):
+        self.capacity = window
+        self.queue = deque([])
+        self.tick = 0
 
-    def put(self, price):
-        if self.window_size <= len(self.price_flow):
-            self.price_flow.popleft()
-        while self.price_flow and price > self.price_flow[-1]:
-            self.price_flow.pop()
-        self.price_flow.append(price)
+    def push(self, price):
+        if self.queue and self.queue[0][0] == self.tick - self.capacity:
+            self.queue.popleft()
+        while self.queue and price > self.queue[-1][1]:
+            self.queue.pop()
+        self.queue.append((self.tick, price))
+        self.tick += 1
 
-    def get_price(self):
-        return self.price_flow[0]
+    def get_price(self, ):
+        return self.queue[0][1]
+
+
+
+
 
 

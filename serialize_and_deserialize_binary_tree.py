@@ -116,7 +116,7 @@ class CodecDFS:
             if nodes[-1] == 'None':
                 nodes.pop()
                 return None
-            node = TreeNode(int(nodes.pop().val))
+            node = TreeNode(int(nodes.pop()))
             node.left = dfs(nodes)
             node.right = dfs(nodes)
             return node
@@ -161,6 +161,5 @@ class CodecBFS:
                 queue.append(cur.right)
             i += 1
         return root
-
 
 

@@ -1,4 +1,5 @@
 from random import choice
+from collections import defaultdict
 
 
 # random return with O(1)
@@ -42,13 +43,26 @@ class RandomizedSet:
 
 class RandomizedCollection:
     def __init__(self):
-        pass
+        self.dict = defaultdict(set)
+        self.list = []
 
     def insert(self, val):
-        pass
+        self.dict[val].add(len(self.list))
+        self.list.append(val)
+        return len(self.list[val]) == 1
 
     def remove(self, val):
-        pass
+        if not self.dict[val]:
+            return False
+        last_element = self.list[-1]
+        remove_idx = self.dict[val].pop()
+        self.list[remove_idx] = last_element
+        self.dict[last_element].add(remove_idx)
+        self.dict[last_element].discard(len(self.list) - 1)
+        self.list.pop()
+        return True
 
     def get_random(self):
-        pass
+        return choice(self.list)
+
+

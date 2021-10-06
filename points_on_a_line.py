@@ -13,4 +13,4 @@ def max_points(points):
             else:
                 slopes[i][y_diff/x_diff] += 1
         optimal = max(optimal, max(slopes[i].values()))
-    return optimal + 1a
+    return optimal + 1

@@ -38,8 +38,10 @@ def king_walking(board):
             y, x, d = queue2.popleft()
             for dy, dx in directions:
                 new_y, new_x, new_d = y + dy, x + dx, d + 1
-                if 0 <= new_y < ny and 0 <= new_x < nx and (new_y, new_x) not in q2_visited and board[new_y][
-                    new_x] != -1:
+                if 0 <= new_y < ny and \
+                        0 <= new_x < nx and \
+                        (new_y, new_x) not in q2_visited and \
+                        board[new_y][new_x] != -1:
                     q2_visited[(new_y, new_x)] = new_d
                     queue2.append((new_y, new_x, new_d))
 
