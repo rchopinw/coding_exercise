@@ -55,7 +55,6 @@ def path_sum_ii_dfs(root, target):
         if node is None:
             return
         if node.right is None and node.right is None and node.val + v == target:
-            nonlocal results
             results.append(path + [node.val])
             return
         dfs(node.left, v + node.val, path + [node.val])
@@ -116,6 +115,61 @@ def path_sum_to_k(root, k):
 
     dfs(root, 0)
     return count
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def path_sum_iiii(root, k):
+    count = 0
+    prefix = defaultdict(int)
+    def dfs(node, cur_sum):
+        nonlocal count
+        if node is None:
+            return
+        cur_sum += node.val
+        count += (cur_sum == k) + prefix[cur_sum - k]
+        prefix[cur_sum] += 1
+        dfs(node.left, cur_sum)
+        dfs(node.right, cur_sum)
+        prefix[cur_sum] -= 1
+    dfs(root, 0)
+    return count
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
