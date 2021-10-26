@@ -4,6 +4,7 @@ import heapq
 # sum with 1: [1, 1, 1] -> [1, 1, 3] -> [1, 5, 3] -> [1, 5, 9], 3 times of transformation
 def sum_with_one(queries):
     optimal = float('+Inf')
+    results = []
     for query in queries:
         count, valid = 0, True
         query = [-x for x in query[::-1]]
@@ -21,7 +22,8 @@ def sum_with_one(queries):
             count += 1
         if valid:
             optimal = min(optimal, count)
-    return optimal
+        results.append(optimal)
+    return results
 
 
 # from point (x, y) to (x + y, y) or (x, y + x)

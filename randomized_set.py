@@ -64,5 +64,3 @@ class RandomizedCollection:
 
     def get_random(self):
         return choice(self.list)
-
-

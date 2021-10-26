@@ -14,12 +14,3 @@ def wildcard(s, p):
                 dp[i][j] = dp[i-1][j-1]
     return dp[-1][-1]
 
-
-
-
-
-
-
-
-
-
