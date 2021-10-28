@@ -16,7 +16,14 @@ def partition_of_palindromes(s):
 
 
 def partition_of_palindromes_ii(s):
-    pass
+    dp = {i: [] for i in range(len(s) + 1)}
+    dp[0] = [[]]
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            for combination in dp[j]:
+                if s[j:i] == s[j:i][::-1]:
+                    dp[i].append(combination + [s[j:i]])
+    return dp[len(s)]
 
 
 # shortest palindrome
@@ -30,6 +37,3 @@ def shortest_palindrome(s):
         if s_dual[i] == s_dual[j]:
             dp[i] = j + 1
     return s[::-1][:len(s) - dp[-1]] + s
-
-
-

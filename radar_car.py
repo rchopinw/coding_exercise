@@ -21,6 +21,18 @@ def is_overlap(c1, c2):
     return (x1 - x2)**2 + (y1 - y2)**2 <= (r1 + r2)**2
 
 
+def is_in_radar(c, pos):
+    x, y, r = c
+    px, py = pos
+    return (x - px)**2 + (y - py)**2 <= r**2
+
+
+def same_side(pos1, pos2):
+    if pos1[0] == pos2[0] or pos1[1] == pos2[1]:
+        return True
+    return False
+
+
 def radar_car(radars):
     n_radars = len(radars)
     uf = UnionFind(parent=[i for i in range(n_radars)])
@@ -43,3 +55,22 @@ def radar_car(radars):
             cur_upper, cur_lower = float('-inf'), float('inf')
         prev_group = cur_group
     return True
+
+
+def radar_car_ii(radars, start, end):
+    n_radars = len(radars)
+    flag = False
+    for radar in radars:
+        if is_in_radar(radar, start) or is_in_radar(radar, end):
+            return False
+        if start[0] == end[0] and (start[1] - radar[1]) * (end[1] - radar[1]) < 0:
+            if start[0] == 0 and radar[0] - radar[2] <= 0:
+                flag = True
+            if start[0] == 1 and radar[0] + radar[2] >= 1:
+                flag = True
+        if start[1] == end[1] and (start[0] - radar[0]) * (end[0] - radar[0]) < 0:
+            if start[1] == 0 and radar[1] - radar[2] <= 0:
+                flag = True
+            if start[1] == 1 and radar[1] + radar[2] >= 1:
+                flag = True
+    uf = UnionFind(parent=[i for i in range(n_radars)])

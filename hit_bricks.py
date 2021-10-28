@@ -21,7 +21,7 @@ def hit_bricks(grid, hits):
         grid[y][x] += 1  # add the hit brick back to the graph
         if grid[y][x] <= 0:  # to avoid being hit too many times
             return False
-        if y == 0 and grid[y][x] == 1 or grid[y][x] == 2:
+        if y == 0:
             return True
         for dy, dx in directions:
             new_x, new_y = x + dx, y + dy

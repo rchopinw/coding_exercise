@@ -10,6 +10,17 @@ def binary_representation_loop(n):
     return s[::-1]
 
 
+def f_print(n):
+    if n == 0:
+        return ''
+    s = 0
+    i = 0
+    while s < n:
+        s += 2**i
+        i += 1
+    return format(n - 2**(i - 1), 'b')
+
+
 def binary_representation_recursion(n, flag=True):
     if flag:
         n = n - 1

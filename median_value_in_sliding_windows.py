@@ -118,28 +118,3 @@ class MedianValueInFixedSizeFlow:
             if self.capacity%2 == 0:
                 return (self.bigs[0] - self.smalls[0]) / 2.0
             return -self.smalls[0]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

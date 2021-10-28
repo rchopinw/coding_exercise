@@ -84,8 +84,8 @@ class ExamRoom:
 
     def seat(self):
         pos = 0
-        if len(self.students) != 0:
-            optimal_distance = 0
+        if self.students:
+            optimal_distance = self.students[0]
             for prev_, next_ in zip(self.students, self.students[1:]):
                 if (next_ - prev_) // 2 > optimal_distance:
                     optimal_distance, pos = (next_ - prev_) // 2, prev_ + (next_ - prev_) // 2
