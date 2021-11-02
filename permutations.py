@@ -4,6 +4,7 @@ from collections import Counter
 # generate all the anagrams from given string
 def generate_anagrams_i(s):
     result = []
+
     def backtrack(cur_s, rec):
         if len(cur_s) == len(s):
             result.append(cur_s)
@@ -18,8 +19,9 @@ def generate_anagrams_i(s):
     return result
 
 
-def generate_anagrams_ii(s):
+def generate_anagrams_ii(s):  # generate anagrams with duplication
     result = []
+
     def backtrack(cur_s, rec):
         if len(cur_s) == len(s):
             result.append(cur_s)

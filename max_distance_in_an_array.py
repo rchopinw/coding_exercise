@@ -17,5 +17,3 @@ def max_distance_in_array(nums):
             cur_queue.append(pending)
             cur_v += right
         i += 1
-
-

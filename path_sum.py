@@ -84,9 +84,7 @@ def path_sum_iii(root, target):
         if not node:
             return
         v += node.val
-        if v == target:
-            count += 1
-        count += record[v - target]
+        count += (v == target) + record[v - target]
         record[v] += 1
         dfs(node.left, v)
         dfs(node.right, v)
@@ -117,63 +115,14 @@ def path_sum_to_k(root, k):
     return count
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def path_sum_iiii(root, k):
-    count = 0
-    prefix = defaultdict(int)
-    def dfs(node, cur_sum):
-        nonlocal count
-        if node is None:
-            return
-        cur_sum += node.val
-        count += (cur_sum == k) + prefix[cur_sum - k]
-        prefix[cur_sum] += 1
-        dfs(node.left, cur_sum)
-        dfs(node.right, cur_sum)
-        prefix[cur_sum] -= 1
-    dfs(root, 0)
-    return count
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# sum with k times
+def check_sub_array_sum(nums, k):
+    prefix, s = {0: -1}, 0
+    for i, num in enumerate(nums):
+        s += num
+        if s % k in prefix:
+            if i - prefix[s % k] >= 2:
+                return True
+        else:
+            prefix[s % k] = i
+    return False

@@ -14,7 +14,6 @@ class CodecBinaryTreeDFS:
 
     def serialize(self, root):
         s = ''
-
         def dfs_encode(node):
             nonlocal s
             if not node:
@@ -122,44 +121,3 @@ class CodecDFS:
             return node
 
         return dfs(node_values)
-
-
-from collections import deque
-
-
-class CodecBFS:
-    def serialize(self, root):
-        if not root:
-            return 'None,'
-        queue, result = deque([root]), ''
-        while queue:
-            cur = queue.popleft()
-            if not cur:
-                result += 'None,'
-                continue
-            result += str(cur.val) + ','
-            queue.append(cur.left)
-            queue.append(cur.right)
-        return result
-
-    def deserialize(self, data):
-        node_values = data.split(',')
-        if node_values[0] == 'None':
-            return None
-        root = TreeNode(int(node_values[0]))
-        queue = deque([root])
-        i = 1
-        while queue and i < len(node_values):
-            cur = queue.popleft()
-            if node_values[i] != 'None':
-                left = TreeNode(int(node_values[i]))
-                cur.left = left
-                queue.append(left)
-            i += 1
-            if node_values[i] != 'None':
-                cur.right = TreeNode(int(node_values[i]))
-                queue.append(cur.right)
-            i += 1
-        return root
-
-

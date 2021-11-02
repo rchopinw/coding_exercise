@@ -53,16 +53,3 @@ def unique_path_iii(grid):
 
     backtrack(si, sj, num_spaces)
     return num_paths
-
-
-
-
-
-
-
-
-
-
-
-
-

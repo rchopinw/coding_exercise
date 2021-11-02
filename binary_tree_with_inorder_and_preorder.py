@@ -1,6 +1,3 @@
-from serialize_and_deserialize_binary_tree import CodecBFS
-
-
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -11,7 +8,7 @@ class TreeNode:
 # construct binary tree with in-order and pre-order traversal
 def build_tree(preorder, inorder):
     # the pre-order sequence always starts with root node while the in-order sequence is always
-    # split by the root node, i.e., the root node is always located in the middle of the tree
+    # split by the root node, i.e., the root node is always located in the middle of the two children
     p_idx = 0
     x_to_i = {xi: i for i, xi in enumerate(inorder)}  # build a mapping from value to index
 
@@ -25,8 +22,23 @@ def build_tree(preorder, inorder):
         root.left = recursion(left, x_to_i[cur_val] - 1)  # fetch the corresponding index from in-order array with O(1)
         root.right = recursion(x_to_i[cur_val] + 1, right)
         return root
-
     return recursion(0, len(preorder) - 1)
+
+
+def build_tree_ii(inorder, postorder):
+    x_to_i = {x: i for i, x in enumerate(inorder)}
+
+    def recursion(left, right):
+        if left <= right:
+            cur_val = postorder.pop()
+            root = TreeNode(cur_val)
+            mid = x_to_i[cur_val]
+            root.right = recursion(mid + 1, right)
+            root.left = recursion(left, mid - 1)
+            return root
+        return
+
+    return recursion(0, len(inorder) - 1)
 
 
 def in_order_traversal(root):

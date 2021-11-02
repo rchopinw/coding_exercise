@@ -13,12 +13,15 @@ def binary_representation_loop(n):
 def f_print(n):
     if n == 0:
         return ''
+
+    def f(k):
+        return sum(2**i for i in range(k + 1))
+
     s = 0
     i = 0
-    while s < n:
-        s += 2**i
+    while not f(i) <= n < f(i + 1):
         i += 1
-    return format(n - 2**(i - 1), 'b')
+    return '0' * i + format(n - f(i), 'b')
 
 
 def binary_representation_recursion(n, flag=True):

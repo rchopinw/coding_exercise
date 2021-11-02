@@ -1,6 +1,12 @@
 import heapq
 
 
+class ListNode:
+    def __init__(self, val=0, nxt=None):
+        self.val = val
+        self.next = nxt
+
+
 # merging k sorted arrays
 def merge_k_sorted_arrays(arrays):
     ans, heap = [], []
@@ -15,6 +21,23 @@ def merge_k_sorted_arrays(arrays):
     return ans
 
 
+def merge_k_sorted_lists(lists):
+    pq = []
+    m = ListNode()
+    cur = m
+    for i, l in enumerate(lists):
+        if l:
+            heapq.heappush(pq, (l.val, i))
+            lists[i] = lists[i].next
+    while pq:
+        cur_val, f = heapq.heappop(pq)
+        cur.next = ListNode(val=cur_val)
+        if lists[f]:
+            heapq.heappush(pq, (lists[f].val, f))
+            lists[f] = lists[f].next
+        cur = cur.next
+    return m.next
+
 
 if __name__ == '__main__':
     arrs = [[2, 5, 8, 10], [3, 7], [2, 3, 22], [1]]
@@ -22,3 +45,4 @@ if __name__ == '__main__':
 
     arrs = [[], [1, 2, 5], [3]]
     assert merge_k_sorted_arrays((arrs)) == [1, 2, 3, 5]
+    

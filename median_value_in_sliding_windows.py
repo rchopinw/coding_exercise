@@ -10,8 +10,7 @@ def median_value(nums, k):
     i = k - 1
     removals, medians = defaultdict(int), []
     while i < len(nums):
-        print(smalls, bigs, len(smalls) + len(bigs))
-        medians.append((bigs[0] - smalls[0])/2.0 if k%2 == 0 else -smalls[0])
+        medians.append((bigs[0] - smalls[0])/2.0 if k % 2 == 0 else -smalls[0])
         i += 1
         if i == len(nums):
             break

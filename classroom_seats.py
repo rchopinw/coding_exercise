@@ -111,5 +111,3 @@ class ExamRoom:
             else:
                 right = mid
         return left
-
-

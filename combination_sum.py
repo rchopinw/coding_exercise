@@ -44,9 +44,10 @@ def subset_sum_recursive_ii(nums, k):  # allow picking one item multiple times
     return results
 
 
-def subset_sum_recursive_iii(candidates, target):
+def subset_sum_recursive_iii(candidates, target):  # with duplication, need sorting
     results = []
     candidates.sort()
+
     def backtrack(idx, path, s):
         if s == target:
             results.append(path)
@@ -54,21 +55,8 @@ def subset_sum_recursive_iii(candidates, target):
             if i > idx and candidates[i-1] == candidates[i]:
                 continue
             backtrack(i + 1, path + [candidates[i]], s + candidates[i])
+
     backtrack(0, [], 0)
-    return results
-
-
-def subset_sum_recursive_iiii(candidates, target):
-    results = []
-    candidates.sort()
-    def backtrack(space, path, s):
-        if s == 0:
-            results.append(path)
-        for i in range(len(space)):
-            if i > 0 and space[i-1] == space[i]:
-                continue
-            backtrack(space[i+1:], path + [space[i]], s - space[i])
-    backtrack(candidates, [], target)
     return results
 
 
@@ -95,6 +83,15 @@ def subset_sum_dp_ii(nums, k):
                 # if last combination can sum to k or add current one can sum to k
                 dp[i][j] = dp[i - 1][j] or dp[i - 1][j - nums[i - 1]]
     return dp[-1][-1]
+
+
+def subset_sum_dp_iii(nums, k):  # allowing pick one item multiple times
+    dp = [0 for _ in range(k + 1)]
+    dp[0] = 1
+    for num in nums:
+        for i in range(num, k + 1):
+            dp[i] += dp[i - num]
+    return dp[-1]
 
 
 if __name__ == '__main__':

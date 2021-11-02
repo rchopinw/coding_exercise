@@ -19,23 +19,3 @@ def meeting_rooms_ii(intervals):
         heapq.heappush(queue, interval[1])
     return len(queue)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
